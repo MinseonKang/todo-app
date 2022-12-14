@@ -33,10 +33,15 @@ const Todo = ({ item, deleteItem }) => {
   };
 
   // checkbox 업데이트
-  //   const checkboxEventHandler = () => {
-  //     todoItem.done = !todoItem.done; // !true -> false or !false -> true
-  //     setTodoItem(todoItem);
-  //   };
+  // done: true -> false, fasle, -> true
+  const checkboxEventHandler = (e) => {
+    // rest: id, title 정보
+    const { done, ...rest } = todoItem; // { id: 1, title: 'todo1', done: false, }
+    setTodoItem({
+      done: e.target.checked,
+      ...rest,
+    });
+  };
 
   return (
     <div className="Todo">
@@ -46,7 +51,7 @@ const Todo = ({ item, deleteItem }) => {
         name={`todo${id}`}
         value={`todo${id}`}
         defaultChecked={done}
-        // onChange={checkboxEventHandler}
+        onChange={checkboxEventHandler}
       />
       {/* <label htmlFor={`todo${id}`}>{title}</label> */}
       <input
