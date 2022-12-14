@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../styles/AddTodo.scss";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AddTodo = ({ addItem }) => {
   const [todoItem, setTodoItem] = useState({
@@ -29,7 +31,9 @@ const AddTodo = ({ addItem }) => {
         value={todoItem.title}
         onKeyPress={onEnterKeyPress}
       />
-      <button onClick={onButtonClick}>ADD</button>
+      <button onClick={onButtonClick}>
+        <FontAwesomeIcon icon={faPlus} />
+      </button>
     </div>
   );
 };
