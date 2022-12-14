@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/AddTodo.scss";
 
 const AddTodo = ({ addItem }) => {
   const [todoItem, setTodoItem] = useState({
