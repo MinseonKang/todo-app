@@ -3,7 +3,7 @@ import "../styles/Todo.scss";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Todo = ({ item, deleteItem }) => {
+const Todo = ({ item, deleteItem, updateItem }) => {
   // console.log(item); // { id: 1, title: 'todo1', done: false, }
   const { id, title, done } = item;
   const [todoItem, setTodoItem] = useState(item);
@@ -32,6 +32,7 @@ const Todo = ({ item, deleteItem }) => {
   const onEnterKeyPress = (e) => {
     if (e.key === "Enter") {
       setReadOnly(true);
+      updateItem(todoItem);
     }
   };
 
@@ -40,10 +41,12 @@ const Todo = ({ item, deleteItem }) => {
   const checkboxEventHandler = (e) => {
     // rest: id, title 정보
     const { done, ...rest } = todoItem; // { id: 1, title: 'todo1', done: false, }
-    setTodoItem({
+    const updatedItem = {
       done: e.target.checked,
       ...rest,
-    });
+    };
+    setTodoItem(updatedItem);
+    updateItem(updatedItem);
   };
 
   return (
