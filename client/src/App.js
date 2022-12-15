@@ -6,7 +6,6 @@ import "./styles/App.scss";
 
 const App = () => {
   const [todoItems, setTodoItems] = useState([]);
-  const todoId = useRef(4);
 
   useEffect(() => {
     console.log("첫 렌더링 완료!");
@@ -21,16 +20,21 @@ const App = () => {
     getTodos();
   }, []);
 
-  const addItem = (newItem) => {
-    // newItem - {id: xx, title: xx, done: false}
-    newItem.id = todoId.current++; // key를 위한 id 설정
-    newItem.done = false; // done 초기화
+  const addItem = async (newItem) => {
+    let response = await axios.post("http://localhost:8888/todo", newItem);
+    console.log(response.data);
+
     // 기존 todoItems를 유지하고, 새로운 newItem을 추가
-    setTodoItems([...todoItems, newItem]); // setTodoItems(todoItems.concat(newItem))
+    setTodoItems([...todoItems, response.data]); // setTodoItems(todoItems.concat(newItem))
+
+    // // newItem - {id: xx, title: xx, done: false}
+    // newItem.id = todoId.current++; // key를 위한 id 설정
+    // newItem.done = false; // done 초기화
   };
 
-  const deleteItem = (targetItem) => {
-    console.log(targetItem);
+  const deleteItem = async (targetItem) => {
+    // console.log(targetItem);
+    await axios.delete(`http://localhost:8888/todo/${targetItem.id}`);
     let newTodoItems = todoItems.filter((item) => item.id !== targetItem.id);
     setTodoItems(newTodoItems);
   };
